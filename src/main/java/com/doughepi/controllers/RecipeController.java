@@ -9,10 +9,7 @@ import com.doughepi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -88,8 +85,8 @@ public class RecipeController {
     }
 
     /**
-     * @param recipeModel
-     * @return
+     * @param recipeModel The incoming json payload for a recipe object
+     * @return The location of the index template in the /templates directory.
      */
     @RequestMapping(value = "/new", params = {"_submit"}, method = RequestMethod.POST)
     public String jsonInsertion(@RequestBody String recipeModel) {
@@ -97,20 +94,27 @@ public class RecipeController {
         return "index";
     }
 
+    /**
+     * @param recipeID The UUID associated with the recipe
+     * @return Returns success if the operation succeeded
+     */
     @RequestMapping(value = "/like", params = {"recipeID"}, method = RequestMethod.POST)
-    public String likeRecipe(@RequestParam("recipeID") UUID recipeID) {
+    public @ResponseBody String likeRecipe(@RequestParam("recipeID") UUID recipeID) {
         RecipeModel recipe = recipeRepository.findOne(recipeID);
         recipe.setLikes(recipe.getLikes() + 1);
         recipeRepository.save(recipe);
         return "success";
     }
 
+    /**
+     * @param recipeID The UUID associated with the recipe
+     * @return Returns success if the operation succeeded
+     */
     @RequestMapping(value = "/dislike", params = {"recipeID"}, method = RequestMethod.POST)
-    public String dislikeRecipe(@RequestParam("recipeID") UUID recipeID) {
+    public @ResponseBody String dislikeRecipe(@RequestParam("recipeID") UUID recipeID) {
         RecipeModel recipe = recipeRepository.findOne(recipeID);
         recipe.setLikes(recipe.getLikes() - 1);
         recipeRepository.save(recipe);
         return "success";
     }
-
 }
