@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2017 Piper Dougherty, Adam Reichanadter, De'Shawn Presley, Tyler Schlomer, Daniel Morgan
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.doughepi.controllers;
 
 import com.doughepi.models.RecipeCategory;
@@ -47,9 +69,9 @@ public class RecipeController {
 
     /**
      * @param recipeRepository Injects recipeRepository
-     * @param userService Injects userService
-     * @param userRepository Injects userRepository
-     * @param recipeService Injects recipeService
+     * @param userService      Injects userService
+     * @param userRepository   Injects userRepository
+     * @param recipeService    Injects recipeService
      */
     @Autowired
     public RecipeController(RecipeRepository recipeRepository, UserService userService, UserRepository userRepository, RecipeService recipeService) {
@@ -70,8 +92,8 @@ public class RecipeController {
     }
 
     /**
-     * @param model The model injected by Spring for each page.
-     * @param recipeID  The UUID of the recipe
+     * @param model    The model injected by Spring for each page.
+     * @param recipeID The UUID of the recipe
      * @return The location of the recipe template in the /templates directory.
      */
     @RequestMapping(params = {"recipeID"})
@@ -99,7 +121,8 @@ public class RecipeController {
      * @return Returns success if the operation succeeded
      */
     @RequestMapping(value = "/like", params = {"recipeID"}, method = RequestMethod.POST)
-    public @ResponseBody String likeRecipe(@RequestParam("recipeID") UUID recipeID) {
+    public @ResponseBody
+    String likeRecipe(@RequestParam("recipeID") UUID recipeID) {
         RecipeModel recipe = recipeRepository.findOne(recipeID);
         recipe.setLikes(recipe.getLikes() + 1);
         recipeRepository.save(recipe);
@@ -111,7 +134,8 @@ public class RecipeController {
      * @return Returns success if the operation succeeded
      */
     @RequestMapping(value = "/dislike", params = {"recipeID"}, method = RequestMethod.POST)
-    public @ResponseBody String dislikeRecipe(@RequestParam("recipeID") UUID recipeID) {
+    public @ResponseBody
+    String dislikeRecipe(@RequestParam("recipeID") UUID recipeID) {
         RecipeModel recipe = recipeRepository.findOne(recipeID);
         recipe.setLikes(recipe.getLikes() - 1);
         recipeRepository.save(recipe);

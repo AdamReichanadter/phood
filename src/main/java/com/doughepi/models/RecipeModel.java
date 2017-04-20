@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2017 Piper Dougherty, Adam Reichanadter, De'Shawn Presley, Tyler Schlomer, Daniel Morgan
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.doughepi.models;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -10,54 +32,106 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by ajreicha on 2/18/17.
+ * Michigan Technological University
+ * CS3141: Team Software Project
+ * <p>
+ * Phood
+ * <p>
+ * A website for the management of recipes.
+ * <p>
+ * The <code>RecipeModel</code> represents a recipe owned by a user.
+ *
+ * @author Piper Dougherty
+ * @author Adam Reichanadter
+ * @author De'Shawn Presley
+ * @author Tyler Schlomer
+ * @author Daniel Morgan
+ * @version 1.0.0-Alpha
+ * @since 4/20/2016
  */
 @Entity
 @Table(name = "recipe")
 @Indexed
 public class RecipeModel {
 
+    /**
+     * The PRIMARY KEY for this recipe.
+     */
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "recipe_id", length = 16)
     private UUID recipeID;
 
+    /**
+     * The parent userModel that owns this recipe.
+     */
     @IndexedEmbedded
     @ManyToOne(cascade = CascadeType.MERGE)
     private UserModel userModel;
 
+    /**
+     * The date this recipe was inserted into the database.
+     */
     @Column(name = "creation_date", columnDefinition = "DATETIME NOT NULL DEFAULT NOW()")
     private Date creationDate;
 
+    /**
+     * The name of this recipe.
+     */
     @Column(name = "recipe_name")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String recipeName;
 
+    /**
+     * The description of this recipe.
+     */
     @Column(name = "recipe_description", columnDefinition = "TEXT")
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
     private String recipeDescription;
 
+    /**
+     * The preparation instructions for this recipe.
+     */
     @Column(name = "recipe_preperation_instructions")
     private String recipePreparationInstructions;
 
+    /**
+     * The recipeCategory this recipe is filed under.
+     */
     @Column(name = "recipe_category")
     @Enumerated(EnumType.STRING)
     private RecipeCategory recipeCategory;
 
+    /**
+     * A wrapper for the recipeCateogory.getEnumText() method to allow Hibernate Search to index
+     * a recipe by its category name.
+     */
     @Field(index = Index.YES, analyze = Analyze.YES, store = Store.YES)
     @Transient
     private String categoryName;
 
+    /**
+     * A list of ingredientModels this recipe contains.
+     */
     @OneToMany(mappedBy = "recipeModel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<IngredientModel> ingredientModels;
 
+    /**
+     * A list of imageModels this recipe owns.
+     */
     @OneToMany(mappedBy = "recipeModel", cascade = CascadeType.ALL)
     private List<ImageModel> imageModels;
 
+    /**
+     * The number of likes this recipe has accrued.
+     */
     @Column(name = "likes")
     private int likes;
 
+    /*
+     * Getters and setters.
+     */
 
     public UUID getRecipeID() {
         return recipeID;
