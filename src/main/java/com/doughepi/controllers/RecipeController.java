@@ -74,7 +74,7 @@ public class RecipeController {
 
     /**
      * @param model The model injected by Spring for each page.
-     * @param recipeID // The UUID of the recipe
+     * @param recipeID  The UUID of the recipe
      * @return The location of the recipe template in the /templates directory.
      */
     @RequestMapping(params = {"recipeID"})
