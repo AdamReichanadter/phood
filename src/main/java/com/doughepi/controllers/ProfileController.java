@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2017 Piper Dougherty, Adam Reichanadter, De'Shawn Presley, Tyler Schlomer, Daniel Morgan
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.doughepi.controllers;
 
 import com.doughepi.models.UserModel;
@@ -16,13 +38,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/profile", method = RequestMethod.GET)
 public class ProfileController {
 
-    @Autowired
-    private
+    private final
     UserService userService;
 
-    @Autowired
-    private
+    private final
     RecipeService recipeService;
+
+    @Autowired
+    public ProfileController(UserService userService, RecipeService recipeService) {
+        this.userService = userService;
+        this.recipeService = recipeService;
+    }
 
     /**
      * @param model The model injected by Spring for each page.
