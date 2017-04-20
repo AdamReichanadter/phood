@@ -32,10 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by ajreicha on 2/18/17.
- */
-
-/**
  * Michigan Technological University
  * CS3141: Team Software Project
  * <p>

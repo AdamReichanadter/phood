@@ -37,10 +37,6 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by pjdoughe on 2/28/17.
- */
-
-/**
  * Michigan Technological University
  * CS3141: Team Software Project
  * <p>
