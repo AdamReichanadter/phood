@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <p>
  * A website for the management of recipes.
  * <p>
- * The <code>HelpController</code> is responsible for routing requests to the / url to the index template.
+ * The <code>IndexController</code> is responsible for routing requests to the / url to the index template.
  *
  * @author Piper Dougherty
  * @author Adam Reichanadter

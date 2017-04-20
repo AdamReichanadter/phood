@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * <p>
  * A website for the management of recipes.
  * <p>
- * The <code>HelpController</code> is responsible for routing requests to the /register url to the register templates.
+ * The <code>RegistrationController</code> is responsible for routing requests to the /register url to the register templates.
  *
  * @author Piper Dougherty
  * @author Adam Reichanadter

@@ -24,7 +24,7 @@ import org.springframework.web.bind.support.SessionStatus;
  * <p>
  * A website for the management of recipes.
  * <p>
- * The <code>HelpController</code> is responsible for routing requests to the /login url to the login template.
+ * The <code>LoginController</code> is responsible for routing requests to the /login url to the login template.
  *
  * @author Piper Dougherty
  * @author Adam Reichanadter
