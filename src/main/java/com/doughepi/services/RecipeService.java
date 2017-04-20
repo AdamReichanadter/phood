@@ -127,7 +127,7 @@ public class RecipeService {
 
     /**
      * @param currentLoggedInUser A UserModel of the currently logged in user
-     * @return An integer representing the total number of likes the user has received
+     * @return An integer representing the total number of likes the UserModel has received
      */
     public int totalLikesForUser(UserModel currentLoggedInUser) {
         int totalLikes = 0;
