@@ -24,11 +24,9 @@ package com.doughepi.services;
 
 import com.doughepi.models.RecipeModel;
 import com.doughepi.models.SearchResults;
-import com.doughepi.repositories.RecipeRepository;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,20 +37,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by pjdoughe on 3/23/17.
+ * Michigan Technological University
+ * CS3141: Team Software Project
+ * <p>
+ * Phood
+ * <p>
+ * A website for the management of recipes.
+ * <p>
+ * The <code>SearchService</code> allows for the searching of recipes.
+ *
+ * @author Piper Dougherty
+ * @author Adam Reichanadter
+ * @author De'Shawn Presley
+ * @author Tyler Schlomer
+ * @author Daniel Morgan
+ * @version 1.0.0-Alpha
+ * @since 4/20/2016
  */
 @Service
 public class SearchService {
 
-    private final RecipeRepository recipeRepository;
-
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     EntityManager entityManager;
-
-    @Autowired
-    public SearchService(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
-    }
 
     /**
      * Return a list of RecipeModel for a given search query string.
