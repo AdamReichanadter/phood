@@ -72,6 +72,11 @@ public class RecipeController {
         return "create-recipe";
     }
 
+    /**
+     * @param model The model injected by Spring for each page.
+     * @param recipeID // The UUID of the recipe
+     * @return The location of the recipe template in the /templates directory.
+     */
     @RequestMapping(params = {"recipeID"})
     public String showRecipePage(Model model, @RequestParam("recipeID") UUID recipeID) {
 
@@ -82,6 +87,10 @@ public class RecipeController {
         return "recipe";
     }
 
+    /**
+     * @param recipeModel
+     * @return
+     */
     @RequestMapping(value = "/new", params = {"_submit"}, method = RequestMethod.POST)
     public String jsonInsertion(@RequestBody String recipeModel) {
         recipeService.createRecipe(recipeModel);
