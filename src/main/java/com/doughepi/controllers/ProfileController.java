@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <p>
  * A website for the management of recipes.
  * <p>
- * The <code>HelpController</code> is responsible for routing requests to the /help url to the help template.
+ * The <code>HelpController</code> is responsible for routing requests to the /profile url to the profile template.
  *
  * @author Piper Dougherty
  * @author Adam Reichanadter
