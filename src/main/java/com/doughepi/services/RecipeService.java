@@ -22,18 +22,43 @@ import java.util.stream.Collectors;
 /**
  * Created by ajreicha on 3/16/17.
  */
+
+/**
+ * Michigan Technological University
+ * CS3141: Team Software Project
+ * <p>
+ * Phood
+ * <p>
+ * A website for the management of recipes.
+ * <p>
+ * The <code>RecipeService</code> Handles all recipe related interactions
+ *
+ * @author Piper Dougherty
+ * @author Adam Reichanadter
+ * @author De'Shawn Presley
+ * @author Tyler Schlomer
+ * @author Daniel Morgan
+ * @version 1.0.0-Alpha
+ * @since 4/20/2016
+ */
 @Service
 public class RecipeService {
 
     @Autowired
+    private
     UserRepository userRepository;
     @Autowired
+    private
     UserService userService;
 
     @Autowired
+    private
     RecipeRepository recipeRepository;
 
 
+    /**
+     * @param recipeModel Json string to be turned into a java object
+     */
     public void createRecipe(@RequestBody String recipeModel) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(RecipeModel.class, new RecipeModelDeserializer());
@@ -44,21 +69,21 @@ public class RecipeService {
         RecipeModel createdRecipe = gson.fromJson(recipeModel, RecipeModel.class);
         createdRecipe.setCreationDate(new Date());
 
-        //TODO validation
         UserModel currentLoggedInUser = userService.getCurrentLoggedInUser();
         createdRecipe.setUserModel(currentLoggedInUser);
         currentLoggedInUser.getRecipeModels().add(createdRecipe);
 
-        //TODO remove recipe logging
         UserModel save = userRepository.save(currentLoggedInUser);
         for (RecipeModel model : save.getRecipeModels()) {
             System.out.println(model.getRecipeID());
             System.out.println(model.getRecipeName());
         }
-
     }
 
 
+    /**
+     * @return A list of RecipeModels
+     */
     public List<List<RecipeModel>> getTopRecipeforCategories() {
         List<List<RecipeModel>> categoryRecipeLists = new ArrayList<>();
 
@@ -69,11 +94,14 @@ public class RecipeService {
                 categoryRecipeLists.add(recipeList);
             }
         }
-
         return categoryRecipeLists;
     }
 
 
+    /**
+     * @param currentLoggedInUser A UserModel of the currently logged in user
+     * @return A list of RecipeModels associated with the UserModel
+     */
     public List<List<RecipeModel>> getAllByCategory(UserModel currentLoggedInUser) {
         List<List<RecipeModel>> resultList = new ArrayList<>();
         for (RecipeCategory recipeCategory : RecipeCategory.values()) {
@@ -88,11 +116,19 @@ public class RecipeService {
         return resultList;
     }
 
+    /**
+     * @param userModel A UserModel object
+     * @return A list of RecipeModels associated with the UserModel
+     */
     public List<RecipeModel> getTopTwoForUser(UserModel userModel) {
         return userModel.getRecipeModels().stream().sorted((recipeModel, t1) -> t1.getLikes() - recipeModel.getLikes())
                 .limit(2).collect(Collectors.toList());
     }
 
+    /**
+     * @param currentLoggedInUser A UserModel of the currently logged in user
+     * @return An integer representing the total number of likes the user has received
+     */
     public int totalLikesForUser(UserModel currentLoggedInUser) {
         int totalLikes = 0;
         for (RecipeModel recipeModel : currentLoggedInUser.getRecipeModels()) {
