@@ -17,11 +17,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ProfileController {
 
     @Autowired
+    private
     UserService userService;
 
     @Autowired
+    private
     RecipeService recipeService;
 
+    /**
+     * @param model The model injected by Spring for each page.
+     * @return The location of the template in the /templates directory.
+     */
     @RequestMapping
     public String showProfile(Model model) {
         UserModel currentLoggedInUser = userService.getCurrentLoggedInUser();

@@ -20,15 +20,40 @@ import java.util.UUID;
 /**
  * Created by pjdoughe on 2/28/17.
  */
+
+/**
+ * Michigan Technological University
+ * CS3141: Team Software Project
+ * <p>
+ * Phood
+ * <p>
+ * A website for the management of recipes.
+ * <p>
+ * The <code>HelpController</code> is responsible for routing requests to the /help url to the help template.
+ *
+ * @author Piper Dougherty
+ * @author Adam Reichanadter
+ * @author De'Shawn Presley
+ * @author Tyler Schlomer
+ * @author Daniel Morgan
+ * @version 1.0.0-Alpha
+ * @since 4/20/2016
+ */
 @Controller
 @RequestMapping("/recipe")
 public class RecipeController {
 
-    final RecipeRepository recipeRepository;
-    final UserService userService;
-    final UserRepository userRepository;
-    final RecipeService recipeService;
+    private final RecipeRepository recipeRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
+    private final RecipeService recipeService;
 
+    /**
+     * @param recipeRepository Injects recipeRepository
+     * @param userService Injects userService
+     * @param userRepository Injects userRepository
+     * @param recipeService Injects recipeService
+     */
     @Autowired
     public RecipeController(RecipeRepository recipeRepository, UserService userService, UserRepository userRepository, RecipeService recipeService) {
         this.recipeRepository = recipeRepository;
@@ -37,6 +62,10 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+    /**
+     * @param model The model injected by Spring for each page.
+     * @return The location of the create-recipe template in the /templates directory.
+     */
     @RequestMapping("/new")
     public String showRecipeForm(Model model) {
         model.addAttribute("categories", RecipeCategory.values());
